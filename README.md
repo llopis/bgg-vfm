@@ -7,3 +7,4 @@ to keep it up to date.
 
 It's recommended that people add the words "sold" or "traded" to their items so the script parses them as sold.
 
+Example output for the San Diego Virtual Flea Market: http://gamesfromwithin.com/tools/sd-vfm.html
