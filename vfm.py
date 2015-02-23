@@ -4,6 +4,7 @@ import sys
 import os
 import re
 import urllib2
+import time
 from xml.dom import minidom
 from pprint import pprint
 
@@ -17,13 +18,16 @@ def getText(nodelist):
 
 
 def getGeeklist(geeklist, filename):
-	url = "http://www.boardgamegeek.com/xmlapi/geeklist/" + geeklist
-	response = urllib2.urlopen(url)
-	#print response.info()
+	url = "http://www.boardgamegeek.com/xmlapi/geeklist/" + geeklist + "?random=" + str(time.time())
+	#response = urllib2.urlopen(url)
+	#html = response.read()
+	#response.close()
+	request = urllib2.Request(url)
+	request.add_header('User-Agent', 'Mozilla/5.0')
+	response = urllib2.build_opener().open(request)
 	html = response.read()
-	#print html
-	response.close()  # best practice to close the file
-
+	response.close()
+	
 	text_file = open(filename, "w")
 	text_file.write(html)
 	text_file.close()
