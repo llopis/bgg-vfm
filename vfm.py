@@ -114,7 +114,7 @@ def generateStaticFiles(vfm, geeklist, outFilename):
 
 def generateVFM(geeklist, outFilename):
 	filename = "geeklist_" + geeklist + ".xml"
-	#getGeeklist(geeklist, filename)
+	getGeeklist(geeklist, filename)
 	
 	xmldoc = minidom.parse(filename)
 
