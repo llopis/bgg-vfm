@@ -7,7 +7,6 @@ import urllib2
 from xml.dom import minidom
 from pprint import pprint
 
-# http://www.boardgamegeek.com/xmlapi/geeklist/11205
 
 def getText(nodelist):
     rc = []
@@ -31,13 +30,15 @@ def getGeeklist(geeklist, filename):
 	
 	
 def getPrice(description):
-	m = re.search('\$(\d)+', description)
+	#m = re.match('.+\$(\d)+?.*$', description)
+	#m = re.match('\$(\d+)(?!.*\$\d)', description)
+	m = re.match('.*(?:\D|^)(\$\d+)', description)
 	if m:
-		return m.group(0)
+		return m.group(1)
 	return ""
 
 def getSold(description):
-	m = re.search(r'\bsold|traded|gifted\b', description, re.IGNORECASE)
+	m = re.search(r'\bsold|traded|gifted|unavailable\b', description, re.IGNORECASE)
 	if m:
 		return True
 	return False
@@ -113,7 +114,7 @@ def generateStaticFiles(vfm, geeklist, outFilename):
 
 def generateVFM(geeklist, outFilename):
 	filename = "geeklist_" + geeklist + ".xml"
-	getGeeklist(geeklist, filename)
+	#getGeeklist(geeklist, filename)
 	
 	xmldoc = minidom.parse(filename)
 
