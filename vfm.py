@@ -67,9 +67,13 @@ def parseData(xmldoc):
 	return vfm
 
 
-def generateStaticFiles(vfm, geeklist):
-	filename = "geeklist_" + geeklist + ".html"
-	fout = open(filename, "w")
+def generateListing(vfm, geeklist, availableFilename, includeSold):
+	baseFilename, fileExtension = os.path.splitext(availableFilename)
+	allFilename = baseFilename + '_all' + fileExtension
+
+	outFilename = availableFilename if not includeSold else allFilename
+
+	fout = open(outFilename, "w")
 	
 	fout.write('<html><head><title>' + vfm['title'] + '</title>\n')
 	fout.write('<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">\n' +
@@ -77,8 +81,12 @@ def generateStaticFiles(vfm, geeklist):
 				'<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>\n')
 	fout.write('</head><body>\n')
 	fout.write('<h1><a href="https://boardgamegeek.com/geeklist/' + geeklist + '">'  + vfm['title'] + '</a></h1>\n')
+	fout.write('<p><a href="' + availableFilename + '">[Available items only]</a> <a href="' + allFilename + '">[All items]</a></p>\n')
+	fout.write('<p></br></p>\n')
 	fout.write('<table>\n');
 	for game in vfm['games']:
+		if (not includeSold and game['sold']):
+			continue
 		url = "https://boardgamegeek.com/geeklist/" + geeklist + "/item/" + game['itemid'] + "#item" + game['itemid']
 		tagStart = ""
 		tagEnd = ""
@@ -97,21 +105,28 @@ def generateStaticFiles(vfm, geeklist):
 	fout.close()
 
 
-def generateVFM(geeklist):
+
+def generateStaticFiles(vfm, geeklist, outFilename):
+	generateListing(vfm, geeklist, outFilename, False)
+	generateListing(vfm, geeklist, outFilename, True)
+	
+
+def generateVFM(geeklist, outFilename):
 	filename = "geeklist_" + geeklist + ".xml"
-	#getGeeklist(geeklist, filename)
+	getGeeklist(geeklist, filename)
 	
 	xmldoc = minidom.parse(filename)
 
 	vfm = parseData(xmldoc)
 
-	generateStaticFiles(vfm, geeklist)	
+	generateStaticFiles(vfm, geeklist, outFilename)	
     
 if __name__ == '__main__':
     try:
 		geeklist = sys.argv[1]
-		generateVFM(geeklist)
+		outFilename = sys.argv[2]
+		generateVFM(geeklist, outFilename)
     except IndexError:
-        print "Usage: %s <geeklist_id>" % sys.argv[0]
+        print "Usage: %s <geeklist_id> <filename>" % sys.argv[0]
         raise SystemExit
 
