@@ -13,7 +13,7 @@ def getText(nodelist):
     for node in nodelist:
         if node.nodeType == node.TEXT_NODE:
             rc.append(node.data)
-    return ''.join(rc)
+    return ''.join(rc).encode('utf-8')
 
 
 def getGeeklist(geeklist, filename):
@@ -32,9 +32,10 @@ def getGeeklist(geeklist, filename):
 def getPrice(description):
 	#m = re.match('.+\$(\d)+?.*$', description)
 	#m = re.match('\$(\d+)(?!.*\$\d)', description)
-	m = re.match('.*(?:\D|^)(\$\d+)', description)
+	#m = re.match('.*(?:\D|^)(\$\d+)', description)
+	m = re.findall('(\$\d+)', description, re.MULTILINE)
 	if m:
-		return m.group(1)
+		return m[len(m)-1]
 	return ""
 
 def getSold(description):
