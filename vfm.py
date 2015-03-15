@@ -34,10 +34,10 @@ def getGeeklist(geeklist, filename):
 	
 	
 def getPrice(description):
-	#m = re.match('.+\$(\d)+?.*$', description)
-	#m = re.match('\$(\d+)(?!.*\$\d)', description)
-	#m = re.match('.*(?:\D|^)(\$\d+)', description)
 	m = re.findall('(\$\d+)', description, re.MULTILINE)
+	if m:
+		return m[len(m)-1]
+	m = re.findall('([0-9]+\.[0-9][0-9])', description, re.MULTILINE)
 	if m:
 		return m[len(m)-1]
 	return ""
