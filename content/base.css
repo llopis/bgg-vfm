@@ -1,0 +1,130 @@
+
+/* #Reset & Basics (Inspired by E. Meyers)
+================================================== */
+	html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+		margin: 0;
+		padding: 0;
+		border: 0;
+		font-size: 100%;
+		font: inherit;
+		vertical-align: baseline; }
+	html{
+		overflow-y:scroll;
+   		overflow-x:auto;
+		}
+	article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+		display: block; }
+	body {
+		line-height: 1; }
+	ol, ul {
+		list-style: none; }
+	blockquote, q {
+		quotes: none; }
+	blockquote:before, blockquote:after,
+	q:before, q:after {
+		content: '';
+		content: none;
+		overflow:hidden; }
+	table {
+		border-collapse: collapse;
+		border-spacing: 0; }
+
+
+/* #Basic Styles
+================================================== */
+	body {
+		font: 16px/22px "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+		-webkit-font-smoothing: antialiased; /* Fix for webkit rendering */
+		-webkit-text-size-adjust: 100%;
+		font-weight:normal;
+ 	}
+
+
+/* #Typography
+================================================== */
+	h1, h2, h3, h4, h5, h6 {
+		font-weight: normal; 
+		-webkit-font-smoothing: antialiased; /* Fix for webkit rendering */
+		-webkit-text-size-adjust: 100%;
+		display:block;
+	}
+	h1 a, h2 a, h3 a, h4 a, h5 a, h6 a { font-weight: inherit; }
+
+	h1 { font-size: 36px; line-height:150%; text-transform: uppercase;}
+	h2 { font-size: 20px; line-height:120%; margin-bottom:20px; }
+
+	.center { text-align:center; }
+	.left { text-align: left; }
+	.right { text-align: right; }
+
+	p { margin: 0 0 0 0; line-height: 24px; }
+	p img { margin: 0; }
+	p.lead { font-size: 21px; line-height: 27px; color: #777;  }
+	
+	em { font-style: italic; }
+	strong { font-weight: bold; }
+	small { font-size: 80%; }
+
+/*	Blockquotes  */
+	blockquote, blockquote p { font-size: 1.1em; color: #5DAAA7; font-style: italic; overflow:hidden; }
+	blockquote { margin: 0 0 20px; padding: 9px 20px 0 19px; border-left: 1px solid #c7a990; overflow:hidden; }
+	blockquote cite { display: block; font-size: 80%; margin-top: 10px; color: #91545F; overflow:hidden; }
+	blockquote cite:before { content: "\2014 \0020"; overflow:hidden; }
+	blockquote cite a, blockquote cite a:visited, blockquote cite a:visited { color: #91545F; overflow:hidden; }
+
+
+/* #Links
+================================================== */
+	a, a:visited { color: #3060A0; text-decoration: none; outline: 0; }
+	a:hover, a:focus { color:#23527c; text-decoration: underline; }
+	p a, p a:visited { line-height: inherit; }
+	h2 a, h2 a:visited { color: #FFFFFF; }
+	h2 a:hover, h2 a:focus { color: #FFFFFF; }
+
+
+/* #Lists
+================================================== */
+	ul, ol { margin-bottom: 0px; }
+	ul { list-style: none outside; }
+	ol { list-style: decimal; }
+	ol, ul.square, ul.circle, ul.disc { margin-left: 30px; }
+	ul.square { list-style: square outside; }
+	ul.circle { list-style: circle outside; }
+	ul.disc { list-style: disc outside; }
+	ul ul, ul ol,
+	ol ol, ol ul { margin: 0;  }
+	ul ul li, ul ol li,
+	ol ol li, ol ul li { margin-bottom: 0; }
+/*	li:first-child {margin-top:5px;}
+	li:last-child { margin-bottom: 0px;}
+*/	li { line-height: 8px; margin-bottom: 20px; }
+	ul.large li { line-height: 21px; }
+	li h2 { line-height:1em; }
+	li p { line-height: 19px; }
+
+
+td, th {
+    border: 1px solid rgba(5,60,70,1.0);
+    padding: 3px 7px 2px 7px;
+    text-align: left;
+}
+
+th {
+	text-transform: uppercase;
+    font-size: 1.0em;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    font-weight: bold;
+	background-color: #23527c;
+	color: #FFFFFF;
+}
+
+table.sortable tbody tr:nth-child(2n) td {
+	background-color: rgba(230,240,255,1.0);
+}
+
+table.sortable tbody tr:nth-child(2n+1) td {
+    background-color: rgba(255,255,255,1);
+}
+
+
