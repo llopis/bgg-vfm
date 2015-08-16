@@ -5,6 +5,7 @@ import os
 import re
 import urllib2
 import time
+import shutil
 from xml.dom import minidom
 from pprint import pprint
 
@@ -82,14 +83,14 @@ def generateListing(vfm, geeklist, availableFilename, includeSold):
 	fout = open(outFilename, "w")
 	
 	fout.write('<html><head><title>' + vfm['title'] + '</title>\n')
-	fout.write('<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">\n' +
-				'<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">\n' +
-				'<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>\n')
+	fout.write('<link rel="stylesheet" href="base.css">\n')
+	fout.write('<script src="sorttable.js"></script>\n')
 	fout.write('</head><body>\n')
 	fout.write('<h1><a href="https://boardgamegeek.com/geeklist/' + geeklist + '">'  + vfm['title'] + '</a></h1>\n')
 	fout.write('<p><a href="' + availableFilename + '">[Available items only]</a> <a href="' + allFilename + '">[All items]</a></p>\n')
 	fout.write('<p></br></p>\n')
-	fout.write('<table>\n');
+	fout.write('<table class="sortable">\n');
+	fout.write('<tr><th>Game</th><th>Price</th><th>Seller</th></td>\n');
 	for game in vfm['games']:
 		if (not includeSold and game['sold']):
 			continue
@@ -108,6 +109,8 @@ def generateListing(vfm, geeklist, availableFilename, includeSold):
 
 	fout.write('</body></html>\n')
 
+	fout.write("</br></br>Page generated with <a href='https://github.com/llopis/bgg-vfm'>bgg-vfm</a></br>\n")
+
 	fout.close()
 
 
@@ -117,6 +120,15 @@ def generateStaticFiles(vfm, geeklist, outFilename):
 	generateListing(vfm, geeklist, outFilename, True)
 	
 
+def copyStaticContent(outFilename):
+	dir = os.path.dirname(outFilename)
+	if (os.path.isdir(dir) == False):
+		os.mkdir(dir)
+	
+	scriptPath = os.path.dirname(os.path.realpath(__file__))
+	shutil.copy(scriptPath + "/content/base.css", dir)
+	shutil.copy(scriptPath + "/content/sorttable.js", dir)
+
 def generateVFM(geeklist, outFilename):
 	filename = "geeklist_" + geeklist + ".xml"
 	getGeeklist(geeklist, filename)
@@ -125,6 +137,7 @@ def generateVFM(geeklist, outFilename):
 
 	vfm = parseData(xmldoc)
 
+	copyStaticContent(outFilename)
 	generateStaticFiles(vfm, geeklist, outFilename)	
     
 if __name__ == '__main__':
