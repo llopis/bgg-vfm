@@ -266,12 +266,19 @@ sorttable = {
     if (isNaN(bb)) bb = 0;
     return aa-bb;
   },
+  /*
   sort_alpha: function(a,b) {
     if (a[0]==b[0]) return 0;
     if (a[0]<b[0]) return -1;
     return 1;
   },
-  sort_ddmm: function(a,b) {
+  */
+	sort_alpha: function(a,b) {
+		if (a[0].toLowerCase()==b[0].toLowerCase()) return 0;
+		if (a[0].toLowerCase()<b[0].toLowerCase()) return -1;
+		return 1;
+	  },
+    sort_ddmm: function(a,b) {
     mtch = a[0].match(sorttable.DATE_RE);
     y = mtch[3]; m = mtch[2]; d = mtch[1];
     if (m.length == 1) m = '0'+m;
